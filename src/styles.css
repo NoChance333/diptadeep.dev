@@ -132,7 +132,7 @@
 
 @utility glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(26px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border: 1px solid var(--glass-border);
 }

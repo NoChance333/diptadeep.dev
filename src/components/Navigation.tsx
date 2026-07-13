@@ -29,9 +29,16 @@ export function Navigation() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: hidden ? -100 : 0, opacity: hidden ? 0 : 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ y: -60, opacity: 0 }}
+animate={{
+  y: hidden ? -100 : 0,
+  opacity: hidden ? 0 : 1,
+}}
+transition={{
+  delay: 2.6,
+  duration: 1.2,
+  ease: [0.22, 1, 0.36, 1],
+}}
       className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
     >
       <nav
@@ -40,31 +47,34 @@ export function Navigation() {
         }`}
         aria-label="Primary"
       >
-        <a
-          href="#home"
-          className="ml-2 mr-3 text-sm font-medium tracking-tight text-foreground/90"
-        >
-          <span className="inline-block h-1.5 w-1.5 translate-y-[-1px] rounded-full bg-accent-glow animate-pulse-soft" />
-          <span className="ml-2">DR</span>
-        </a>
+       <a
+  href="#home"
+  className="ml-2 mr-4 text-sm font-medium tracking-tight text-foreground/90"
+>
+  Diptadeep Roy
+</a>
         <ul className="hidden items-center gap-0.5 md:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="rounded-full px-3 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <a
-          href="#resume"
-          className="ml-2 rounded-full bg-foreground px-4 py-1.5 text-[13px] font-medium text-background transition-transform duration-300 hover:scale-[1.03]"
-        >
-          Résumé
-        </a>
+  {links.map((l) => (
+    <li key={l.href}>
+      <motion.a
+        href={l.href}
+        whileHover={{ y: -1 }}
+        whileTap={{ scale: 0.98 }}
+        className="rounded-full px-3 py-1.5 tracking-wide font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground"
+      >
+        {l.label}
+      </motion.a>
+    </li>
+  ))}
+</ul>
+       <motion.a
+  href="#resume"
+  whileHover={{ y: -1 }}
+  whileTap={{ scale: 0.98 }}
+  className="ml-2 rounded-full border border-white/15 px-4 py-1.5 text-[13px] font-medium text-white transition-all duration-300 hover:bg-white hover:text-black"
+>
+  Resume ↗
+</motion.a>
       </nav>
     </motion.header>
   );

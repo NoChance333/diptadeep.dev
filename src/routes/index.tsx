@@ -11,18 +11,21 @@ import { PlaceholderSection } from "@/components/PlaceholderSection";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      {
-        name: "description",
-        content:
-          "Diptadeep Roy — Software Engineer, Blockchain Researcher and MCA Candidate. Building secure digital systems.",
-      },
-      { property: "og:title", content: "Diptadeep Roy — Software Engineer" },
-      {
-        property: "og:description",
-        content:
-          "Software Engineer, Blockchain Researcher, MCA Candidate. Building secure digital systems.",
-      },
-    ],
+  {
+    name: "description",
+    content:
+      "Diptadeep Roy — Software Developer pursuing MCA at Adamas University. IEEE published author with interests in software engineering, blockchain and modern web development.",
+  },
+  {
+    property: "og:title",
+    content: "Diptadeep Roy — Software Developer",
+  },
+  {
+    property: "og:description",
+    content:
+      "Turning ideas into reliable software.",
+  },
+],
   }),
   component: Index,
 });

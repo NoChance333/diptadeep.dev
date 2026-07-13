@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -9,10 +9,10 @@ export function Hero() {
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 60, damping: 20, mass: 0.6 });
   const sy = useSpring(my, { stiffness: 60, damping: 20, mass: 0.6 });
-  const rotY = useTransform(sx, [-1, 1], [4, -4]);
-  const rotX = useTransform(sy, [-1, 1], [-3, 3]);
-  const tx = useTransform(sx, [-1, 1], [-8, 8]);
-  const ty = useTransform(sy, [-1, 1], [-6, 6]);
+  const rotY = useTransform(sx, [-1, 1], [3, -3]);
+  const rotX = useTransform(sy, [-1, 1], [-2, 2]);
+  const tx = useTransform(sx, [-1, 1], [-6, 6]);
+  const ty = useTransform(sy, [-1, 1], [-4, 4]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -33,25 +33,27 @@ export function Hero() {
     >
       {/* Portrait reveal */}
       <motion.div
-        initial={{ opacity: 0, scale: 1.06 }}
+        initial={{ opacity: 0, scale: 1.05 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2.2, ease: EASE, delay: 0.2 }}
+        transition={{ duration: 2.4, ease: EASE, delay: 0.2 }}
         className="relative"
         style={{ perspective: 1200 }}
       >
         <motion.div
           style={{ rotateX: rotX, rotateY: rotY, x: tx, y: ty }}
-          className="relative h-40 w-40 sm:h-48 sm:w-48"
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+          className="relative h-52 w-40 sm:h-48 sm:w-48"
         >
           {/* Ambient glow */}
           <div
-            className="absolute -inset-10 rounded-full opacity-60 blur-3xl"
+            className="absolute -inset-10 rounded-full opacity-70 blur-3xl"
             style={{
               background:
-                "radial-gradient(circle, oklch(0.72 0.11 240 / 0.35) 0%, transparent 65%)",
+                "radial-gradient(circle, oklch(0.72 0.11 240 / 0.32) 0%, transparent 68%)",
             }}
           />
-          <div className="relative h-full w-full overflow-hidden rounded-full ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)]">
+          <div className="relative h-full w-full overflow-hidden rounded-full ring-[0.75px] ring-white/15 shadow-[0_20px_70px_-22px_rgba(0,0,0,0.82)]">
             <img
               src="/images/hero.png"
               alt="Diptadeep Roy"
@@ -62,7 +64,7 @@ export function Hero() {
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(circle at 50% 30%, transparent 40%, rgba(0,0,0,0.35) 100%)",
+                  "radial-gradient(circle at 50% 30%, transparent 42%, rgba(0,0,0,0.32) 100%)",
               }}
             />
           </div>
@@ -73,8 +75,8 @@ export function Hero() {
       <motion.h1
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 1.0 }}
-        className="text-display mt-10 text-center text-[clamp(2.25rem,5.5vw,4.5rem)] text-foreground"
+        transition={{ duration: 1.35, ease: EASE, delay: 0.95 }}
+        className="mt-16 text-center text-[clamp(2.4rem,5.8vw,4.8rem)] font-medium leading-[0.9] tracking-[-0.02em] text-foreground"
       >
         Diptadeep Roy
       </motion.h1>
@@ -83,42 +85,40 @@ export function Hero() {
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, ease: EASE, delay: 1.35 }}
-        className="mt-5 text-center text-[13px] tracking-[0.28em] text-muted-foreground uppercase"
+        transition={{ duration: 1.25, ease: EASE, delay: 1.2 }}
+        className="mt-6 text-center text-[12px] uppercase tracking-[0.34em] text-muted-foreground/90 sm:text-[13px]"
       >
-        Software Engineer
-        <span className="mx-3 text-muted-foreground/40">·</span>
-        Blockchain Researcher
-        <span className="mx-3 text-muted-foreground/40">·</span>
-        MCA Candidate
+        Software Developer
       </motion.p>
 
       {/* Massive statement */}
       <motion.h2
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 36 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.6, ease: EASE, delay: 1.7 }}
-        className="text-display mx-auto mt-20 max-w-[18ch] bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-center text-[clamp(3rem,10vw,9rem)] text-transparent"
+        transition={{ duration: 1.8, ease: EASE, delay: 1.4 }}
+        className="mx-auto mt-24 max-w-[11.25ch] bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-center text-[clamp(4rem,10vw,10rem)] leading-[0.9] tracking-[-0.025em] text-transparent text-pretty"
       >
-        Building secure digital systems.
+        <span className="block">Turning ideas</span>
+        <span className="block">into reliable</span>
+        <span className="block">software.</span>
       </motion.h2>
 
       {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2.6 }}
-        className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3"
+        transition={{ duration: 1.1, delay: 2.6 }}
+        className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5"
         aria-hidden="true"
       >
-        <span className="text-[10px] tracking-[0.3em] text-muted-foreground/70 uppercase">
+        <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground/70">
           Scroll
         </span>
-        <span className="relative block h-8 w-[1px] overflow-hidden bg-white/10">
+        <span className="relative flex h-8 w-[1px] items-start overflow-hidden bg-white/12">
           <motion.span
-            className="absolute inset-x-0 top-0 h-3 bg-white/70"
-            animate={{ y: [-12, 32] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-x-0 top-0 h-2 rounded-full bg-white/70"
+            animate={{ y: [-6, 28] }}
+            transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }}
           />
         </span>
       </motion.div>
