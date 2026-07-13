@@ -4,7 +4,7 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 const links = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#Experience" },
   { label: "Research", href: "#research" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
@@ -68,7 +68,9 @@ transition={{
   ))}
 </ul>
        <motion.a
-  href="#resume"
+  href="/documents/resume.pdf"
+target="_blank"
+rel="noopener noreferrer"
   whileHover={{ y: -1 }}
   whileTap={{ scale: 0.98 }}
   className="ml-2 rounded-full border border-white/15 px-4 py-1.5 text-[13px] font-medium text-white transition-all duration-300 hover:bg-white hover:text-black"

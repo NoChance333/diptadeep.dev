@@ -5,8 +5,7 @@ export function Footer() {
         <div>
           <div className="text-display text-2xl">Diptadeep Roy</div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
-            Software engineer and blockchain researcher. Designing secure,
-            considered systems.
+            Software engineer
           </p>
         </div>
         <div className="flex flex-col gap-2 text-sm text-muted-foreground md:items-end">

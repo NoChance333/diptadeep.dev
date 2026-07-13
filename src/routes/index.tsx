@@ -7,6 +7,11 @@ import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ThreeBackground } from "@/components/ThreeBackground";
 import { PlaceholderSection } from "@/components/PlaceholderSection";
+import { EducationTimeline } from "@/components/EducationTimeline";
+import { ResearchSection } from "@/components/ResearchSection";
+import { FeaturedProjectSection } from "@/components/FeaturedProjectSection";
+import { SkillsSection } from "@/components/SkillsSection";
+import { ContactSection } from "@/components/ContactSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,32 +60,29 @@ function PageContent() {
         <Hero />
         <PlaceholderSection
           id="about"
-          eyebrow="About"
-          title="A quiet obsession with details."
-          description="This chapter is being written. It will introduce the story, the education, and the ideas that shape the work."
+          eyebrow="ABOUT"
+          title="Curious about systems. Driven to build better software."
+          description={[
+            "I'm Diptadeep Roy, currently pursuing my Master of Computer Applications at Adamas University.",
+            "I enjoy building reliable software, exploring backend systems, and creating applications that solve real-world problems.",
+            "My interests include software engineering, modern web development, blockchain technologies, and distributed systems.",
+          ]}
         />
+        <EducationTimeline />
         <PlaceholderSection
-          id="projects"
-          eyebrow="Projects"
-          title="Selected work."
-          description="A curated collection of engineering work — soon."
-        />
-        <PlaceholderSection
-          id="research"
-          eyebrow="Research"
-          title="Studying trust at scale."
-          description="Peer-reviewed research on blockchain systems and secure infrastructure. Coming soon."
-        />
-        <PlaceholderSection
-          id="skills"
-          eyebrow="Skills"
-          title="A refined toolkit."
-        />
-        <PlaceholderSection
-          id="contact"
-          eyebrow="Contact"
-          title="Let's build something considered."
-        />
+  id="experience"
+  eyebrow="EXPERIENCE"
+  title="Ready to build software that makes an impact."
+  description={[
+    "I'm currently pursuing my Master of Computer Applications at Adamas University and actively seeking my first Software Development opportunity.",
+    "I'm particularly interested in Software Engineering, Backend Development, Full-Stack Development, and Blockchain-based applications.",
+    "Driven by curiosity and continuous learning, I'm eager to contribute to real-world products while growing alongside experienced engineering teams.",
+  ]}
+/>
+        <ResearchSection />
+        <FeaturedProjectSection />
+        <SkillsSection />
+        <ContactSection />
       </main>
       <Footer />
     </div>
