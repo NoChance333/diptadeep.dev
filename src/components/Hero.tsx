@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import heroAsset from "@/assets/hero.png.asset.json";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -54,7 +53,7 @@ export function Hero() {
           />
           <div className="relative h-full w-full overflow-hidden rounded-full ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)]">
             <img
-              src={heroAsset.url}
+              src="/images/hero.png"
               alt="Diptadeep Roy"
               className="h-full w-full object-cover"
               draggable={false}
