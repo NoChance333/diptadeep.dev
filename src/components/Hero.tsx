@@ -1,4 +1,5 @@
-import { SectionReveal } from "@/components/SectionReveal";
+"use client";
+
 import { useEffect, useRef } from "react";
 import {
   motion,
@@ -17,21 +18,26 @@ export function Hero() {
   const my = useMotionValue(0);
   const reducedMotion = useReducedMotion();
   const reducedProgress = useMotionValue(0);
+  
   const { scrollYProgress } = useScroll({
     target: wrapRef,
     offset: ["start start", "end start"],
   });
+
   const sx = useSpring(mx, { stiffness: 60, damping: 20, mass: 0.6 });
   const sy = useSpring(my, { stiffness: 60, damping: 20, mass: 0.6 });
   const rotY = useTransform(sx, [-1, 1], [3, -3]);
   const rotX = useTransform(sy, [-1, 1], [-2, 2]);
   const tx = useTransform(sx, [-1, 1], [-6, 6]);
   const ty = useTransform(sy, [-1, 1], [-4, 4]);
+
   const progress = reducedMotion ? reducedProgress : scrollYProgress;
   const portraitScale = useTransform(progress, [0, 0.16, 0.45, 0.75], [1, 0.96, 0.84, 0.74]);
   const portraitOpacity = useTransform(progress, [0, 0.16, 0.46, 0.78], [1, 1, 0.48, 0]);
   const portraitY = useTransform(progress, [0, 0.3, 0.75], [0, -26, -54]);
   const roleOpacity = useTransform(progress, [0, 0.14, 0.34, 0.6], [1, 1, 0.28, 0]);
+  
+  // Kept your clean values exactly intact
   const headlineOpacity = useTransform(progress, [0, 0.2, 0.5, 0.8], [1, 1, 0.76, 0.18]);
   const headlineY = useTransform(progress, [0, 0.24, 0.64], [0, -12, -28]);
   const glowOpacity = useTransform(progress, [0, 0.24, 0.62], [0.7, 0.35, 0.08]);
@@ -140,7 +146,6 @@ export function Hero() {
         <span className="block">into reliable</span>
         <span className="block">software.</span>
       </motion.h2>
-
     </section>
   );
 }
