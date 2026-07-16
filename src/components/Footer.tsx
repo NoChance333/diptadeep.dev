@@ -8,29 +8,6 @@ export function Footer() {
             Software engineer
           </p>
         </div>
-        <div className="flex flex-col gap-2 text-sm text-muted-foreground md:items-end">
-          <span className="text-eyebrow">Elsewhere</span>
-          <div className="flex gap-6">
-            <a
-              href="#"
-              className="transition-colors duration-300 hover:text-foreground"
-            >
-              GitHub
-            </a>
-            <a
-              href="#"
-              className="transition-colors duration-300 hover:text-foreground"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="#contact"
-              className="transition-colors duration-300 hover:text-foreground"
-            >
-              Email
-            </a>
-          </div>
-        </div>
       </div>
       <div className="mx-auto mt-10 flex max-w-6xl items-center justify-between border-t border-border/50 pt-6 text-xs text-muted-foreground/70">
         <span>© {new Date().getFullYear()} Diptadeep Roy</span>
