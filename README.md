@@ -17,6 +17,7 @@ This portfolio was hand-crafted locally inside VS Code utilizing an optimized, m
 
 The project follows standard monolithic full-stack React directory conventions:
 
+```text
 ├── src/                  # Main source application layer
 │   ├── routes/           # TanStack file-based routing directory
 │   ├── components/       # Atomic UI layout architecture
