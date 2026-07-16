@@ -1,11 +1,5 @@
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { SectionReveal } from "@/components/SectionReveal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -17,17 +11,6 @@ interface Props {
 }
 
 export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const reducedMotion = useReducedMotion();
-  const reducedProgress = useMotionValue(0);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const progress = reducedMotion ? reducedProgress : scrollYProgress;
-  const opacity = useTransform(progress, [0, 0.2, 0.6], [0, 1, 1]);
-  const y = useTransform(progress, [0, 0.2, 0.6], [38, 0, 0]);
-
   const paragraphs = Array.isArray(description)
     ? description
     : description
@@ -35,15 +18,11 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
       : [];
 
   return (
-    <section
-      ref={ref}
+    <SectionReveal
       id={id}
       className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
     >
-      <motion.div
-        style={{ opacity, y }}
-        className="mx-auto flex max-w-4xl flex-col items-center text-center"
-      >
+      <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +67,7 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
           transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
           className="mx-auto mt-14 h-px w-24 origin-center bg-gradient-to-r from-transparent via-white/40 to-transparent"
         />
-      </motion.div>
-    </section>
+      </div>
+    </SectionReveal>
   );
 }

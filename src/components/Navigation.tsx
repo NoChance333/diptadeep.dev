@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 const links = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Experience", href: "#Experience" },
+  { label: "Experience", href: "#experience" },
   { label: "Research", href: "#research" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
@@ -12,27 +17,27 @@ const links = [
 
 export function Navigation() {
   const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
+  const navOpacity = useTransform(scrollY, [0, 700], [1, 0]);
+  const navY = useTransform(scrollY, [0, 700], [0, -25]);
   const [scrolled, setScrolled] = useState(false);
+  const pointerEvents = useTransform(
+  navOpacity,
+  (value) => (value < 0.05 ? "none" : "auto")
+);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    setScrolled(latest > 24);
-    if (latest > previous && latest > 160) setHidden(true);
-    else setHidden(false);
-  });
+  setScrolled(latest > 24);
+});
 
-  useEffect(() => {
-    // ensure page starts unhidden
-    setHidden(false);
-  }, []);
 
   return (
     <motion.header
-      initial={{ y: -60, opacity: 0 }}
-animate={{
-  y: hidden ? -100 : 0,
-  opacity: hidden ? 0 : 1,
+  initial={{ y: -60, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  style={{
+  opacity: navOpacity,
+  y: navY,
+  pointerEvents,
 }}
 transition={{
   delay: 2.6,

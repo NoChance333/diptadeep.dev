@@ -1,5 +1,5 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { SectionReveal } from "@/components/SectionReveal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -29,20 +29,10 @@ const milestones = [
 ] as const;
 
 export function EducationTimeline() {
-  const ref = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const progress = shouldReduceMotion ? 1 : scrollYProgress;
-  const lineOpacity = useTransform(progress, [0, 0.2, 0.7], [0, 0.25, 1]);
-  const lineScaleY = useTransform(progress, [0, 0.2, 0.7], [0, 0.2, 1]);
 
   return (
-    <section
-      ref={ref}
+    <SectionReveal
       id="education"
       className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
     >
@@ -68,11 +58,7 @@ export function EducationTimeline() {
         </motion.h2>
 
         <div className="relative mt-16 w-full max-w-3xl">
-          <motion.div
-            style={{ opacity: lineOpacity, scaleY: lineScaleY }}
-            className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/35 to-transparent sm:block"
-            aria-hidden="true"
-          />
+          <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/35 to-transparent sm:block" aria-hidden="true" />
 
           <div className="flex flex-col gap-14 sm:gap-16">
             {milestones.map((milestone, index) => {
@@ -115,6 +101,6 @@ export function EducationTimeline() {
           </div>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }

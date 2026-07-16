@@ -1,4 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { SectionReveal } from "@/components/SectionReveal";
+import { GlassPanel } from "@/components/GlassPanel";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -19,11 +21,11 @@ export function FeaturedProjectSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="projects"
+    <SectionReveal
+      id="featured-project"
       className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
     >
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center text-center">
+      <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
         <motion.p
           initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -46,33 +48,35 @@ export function FeaturedProjectSection() {
           through software.
         </motion.h2>
 
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: 0.985 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-12%" }}
-          transition={{ duration: 1.05, ease: EASE, delay: 0.12 }}
-          className="mt-14 w-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] shadow-[0_22px_70px_-32px_rgba(0,0,0,0.84)]"
-        >
+ <GlassPanel
+  initial={
+    shouldReduceMotion
+      ? { opacity: 1, y: 0, scale: 1 }
+      : { opacity: 0, y: 24, scale: 0.985 }
+  }
+  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+  viewport={{ once: true, margin: "-12%" }}
+  transition={{ duration: 1.05, ease: EASE, delay: 0.12 }}
+  className="mt-14 w-full overflow-hidden shadow-[0_22px_70px_-32px_rgba(0,0,0,0.84)]"
+>
           <div className="flex min-h-[22rem] items-center justify-center border-b border-white/10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.035),transparent_70%)] p-8 sm:min-h-[26rem] sm:p-10 md:p-12">
-
-  <motion.img
-    src="/images/novis.png"
-    alt="NOVIS Web Application"
-    initial={{ opacity: 0, scale: 0.96 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    transition={{
-      duration: 1,
-      ease: [0.16, 1, 0.3, 1],
-    }}
-    whileHover={{
-      scale: 1.02,
-      y: -4,
-    }}
-    className="w-full max-w-5xl rounded-[24px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.75)]"
-  />
-
-</div>
+            <motion.img
+              src="/images/novis.png"
+              alt="NOVIS Web Application"
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              whileHover={{
+                scale: 1.02,
+                y: -4,
+              }}
+              className="w-full max-w-5xl rounded-[24px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.75)]"
+            />
+          </div>
           <div className="px-6 py-8 text-left sm:px-8 sm:py-9">
             <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground/80">
               Blockchain-Based Tokenization and Management of Land Documents
@@ -81,7 +85,7 @@ export function FeaturedProjectSection() {
               A decentralized approach to secure ownership and transfer, designed to make land records more verifiable, trustworthy, and resilient.
             </p>
           </div>
-        </motion.div>
+        </GlassPanel>
 
         <div className="mt-14 grid w-full gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
           <div className="flex flex-col gap-6 text-left">
@@ -180,12 +184,11 @@ export function FeaturedProjectSection() {
                 className="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-sm text-foreground transition-colors hover:bg-white/5"
               >
                 Read IEEE Paper →
-            
               </motion.a>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }

@@ -1,3 +1,4 @@
+import { SectionReveal } from "@/components/SectionReveal";
 import { useEffect, useRef } from "react";
 import {
   motion,
@@ -140,25 +141,6 @@ export function Hero() {
         <span className="block">software.</span>
       </motion.h2>
 
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.1, delay: 2.6 }}
-        className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5"
-        aria-hidden="true"
-      >
-        <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground/70">
-          Scroll
-        </span>
-        <span className="relative flex h-8 w-[1px] items-start overflow-hidden bg-white/12">
-          <motion.span
-            className="absolute inset-x-0 top-0 h-2 rounded-full bg-white/70"
-            animate={{ y: [-6, 28] }}
-            transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </span>
-      </motion.div>
     </section>
   );
 }

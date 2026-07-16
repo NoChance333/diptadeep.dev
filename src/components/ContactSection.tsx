@@ -1,18 +1,18 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { SectionReveal } from "@/components/SectionReveal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const links = [
   { label: "GitHub", href: "https://github.com/NoChance333" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/diptadeep-roy-7123171ba/" },
-  { label: "Email", href: "mailto:diptadeeproy5747@gmail.com" },
 ];
 
 export function ContactSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section
+    <SectionReveal
       id="contact"
       className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
     >
@@ -72,7 +72,18 @@ export function ContactSection() {
             </motion.a>
           ))}
         </div>
+        <motion.a
+          href="mailto:diptadeeproy5747@gmail.com"
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
+          whileHover={{ y: -1 }}
+          className="mt-8 inline-block text-base tracking-wide text-muted-foreground transition-colors duration-300 hover:text-white"
+        >
+          diptadeeproy5747@gmail.com
+        </motion.a>
       </div>
-    </section>
+    </SectionReveal>
   );
 }

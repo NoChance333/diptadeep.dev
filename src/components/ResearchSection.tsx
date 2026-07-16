@@ -1,4 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { SectionReveal } from "@/components/SectionReveal";
+import { GlassPanel } from "@/components/GlassPanel";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -14,7 +16,7 @@ export function ResearchSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section
+    <SectionReveal
       id="research"
       className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-6 py-24 sm:py-28 md:py-32"
     >
@@ -64,12 +66,12 @@ export function ResearchSection() {
         </motion.h2>
 
         <div className="mt-14 grid w-full gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
-          <motion.div
+          <GlassPanel
             initial={shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: 0.985 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 1, ease: EASE, delay: 0.12 }}
-            className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] px-7 py-8 text-left shadow-[0_20px_60px_-30px_rgba(0,0,0,0.75)] backdrop-blur-sm sm:px-8 sm:py-9"
+            className="rounded-[1.75rem] bg-white/[0.03] px-7 py-8 text-left shadow-[0_20px_60px_-30px_rgba(0,0,0,0.75)] backdrop-blur-sm sm:px-8 sm:py-9"
           >
             <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground/80">
               IEEE RACS 2025
@@ -79,47 +81,42 @@ export function ResearchSection() {
             </h3>
             <div className="mt-8 flex flex-wrap gap-3">
               <motion.a
-    href="/documents/ResearchPaper.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    whileHover={{ y: -2, scale: 1.01 }}
-    whileTap={{ scale: 0.99 }}
-    transition={{ duration: 0.2, ease: EASE }}
-    className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5"
-  >
-    Read Paper
-  </motion.a>
+                href="/documents/ResearchPaper.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ duration: 0.2, ease: EASE }}
+                className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5"
+              >
+                Read Paper
+              </motion.a>
 
-  <motion.a
-    href="https://ieeexplore.ieee.org/document/11413273"
-    target="_blank"
-    rel="noopener noreferrer"
-    whileHover={{ y: -2, scale: 1.01 }}
-    whileTap={{ scale: 0.99 }}
-    transition={{ duration: 0.2, ease: EASE }}
-    className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5"
-  >
-    IEEE Xplore ↗
-  </motion.a>
+              <motion.a
+                href="https://ieeexplore.ieee.org/document/11413273"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ duration: 0.2, ease: EASE }}
+                className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5"
+              >
+                IEEE Xplore ↗
+              </motion.a>
 
-  <motion.a
-    href="https://github.com/NoChance333/final-year-project"
-    target="_blank"
-    rel="noopener noreferrer"
-    whileHover={{ y: -2, scale: 1.01 }}
-    whileTap={{ scale: 0.99 }}
-    transition={{ duration: 0.2, ease: EASE }}
-    className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5"
-  >
-    Source Code ↗
-  </motion.a>
-              <div className="mt-8 flex flex-wrap gap-3">
-
-  
-
-</div>
+              <motion.a
+                href="https://github.com/NoChance333/final-year-project"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ duration: 0.2, ease: EASE }}
+                className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5"
+              >
+                Source Code ↗
+              </motion.a>
             </div>
-          </motion.div>
+          </GlassPanel>
 
           <div className="flex flex-col gap-8">
             <motion.div
@@ -150,13 +147,13 @@ export function ResearchSection() {
 
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
               {stats.map((stat, index) => (
-                <motion.div
+                <GlassPanel
                   key={stat.label}
                   initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ duration: 0.95, ease: EASE, delay: 0.2 + index * 0.06 }}
-                  className="rounded-[1.25rem] border border-white/10 bg-white/[0.025] px-5 py-5 text-left"
+                  className="rounded-[1.25rem] bg-white/[0.025] px-5 py-5 text-left"
                 >
                   <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground/70">
                     {stat.label}
@@ -164,12 +161,12 @@ export function ResearchSection() {
                   <p className="mt-3 text-[clamp(1rem,2vw,1.2rem)] leading-none tracking-[-0.02em] text-foreground">
                     {stat.value}
                   </p>
-                </motion.div>
+                </GlassPanel>
               ))}
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }
