@@ -21,13 +21,13 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
     setIsMounted(true);
   }, []);
 
-  // Track the scroll progress of this section relative to the viewport
+  // Track the scroll progress of this specific section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // --- Cinematic Timeline Settings ---
+  // --- Cinematic Timeline Settings (Applies to ALL instances now) ---
   const eyebrowOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [0, 1, 1, 0]);
   const eyebrowY = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [20, 0, 0, -20]);
 
@@ -51,11 +51,7 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
           
           {/* Eyebrow */}
           <motion.p
-            style={id === "about" && isMounted ? { opacity: eyebrowOpacity, y: eyebrowY } : {}}
-            initial={id !== "about" ? { opacity: 0, y: 16 } : undefined}
-            whileInView={id !== "about" ? { opacity: 1, y: 0 } : undefined}
-            viewport={{ once: true, margin: "-15%" }}
-            transition={{ duration: 0.9, ease: EASE }}
+            style={isMounted ? { opacity: eyebrowOpacity, y: eyebrowY } : {}}
             className="text-eyebrow"
           >
             {eyebrow}
@@ -63,11 +59,7 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
 
           {/* Big Cinematic Title */}
           <motion.h2
-            style={id === "about" && isMounted ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : {}}
-            initial={id !== "about" ? { opacity: 0, y: 24 } : undefined}
-            whileInView={id !== "about" ? { opacity: 1, y: 0 } : undefined}
-            viewport={{ once: true, margin: "-15%" }}
-            transition={{ duration: 1.05, ease: EASE, delay: 0.1 }}
+            style={isMounted ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : {}}
             className="mt-6 max-w-3xl text-[clamp(2.1rem,4.6vw,3.8rem)] leading-[1.05] tracking-[-0.025em] text-foreground text-pretty"
           >
             {title}
@@ -79,11 +71,10 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
               {paragraphs.map((paragraph, index) => (
                 <CinematicParagraph
                   key={`${id}-${index}`}
-                  id={id}
                   text={paragraph}
                   index={index}
                   progress={scrollYProgress}
-                  isAboutSection={id === "about" && isMounted}
+                  isMounted={isMounted}
                 />
               ))}
             </div>
@@ -103,17 +94,14 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
   );
 }
 
-// Sub-component isolated safely so that hook counts remain completely pristine and stable
 interface ParagraphProps {
-  id: string;
   text: string;
   index: number;
   progress: MotionValue<number>;
-  isAboutSection: boolean;
+  isMounted: boolean;
 }
 
-function CinematicParagraph({ id, text, index, progress, isAboutSection }: ParagraphProps) {
-  // Stagger the timeline triggers dynamically per paragraph row
+function CinematicParagraph({ text, index, progress, isMounted }: ParagraphProps) {
   const startFade = 0.24 + index * 0.05;
   const endFade = startFade + 0.1;
 
@@ -123,11 +111,7 @@ function CinematicParagraph({ id, text, index, progress, isAboutSection }: Parag
 
   return (
     <motion.p
-      style={isAboutSection ? { opacity, y, filter } : {}}
-      initial={!isAboutSection ? { opacity: 0, y: 24 } : undefined}
-      whileInView={!isAboutSection ? { opacity: 1, y: 0 } : undefined}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.95, ease: EASE, delay: 0.14 + index * 0.08 }}
+      style={isMounted ? { opacity, y, filter } : {}}
       className="max-w-2xl text-base leading-8 text-muted-foreground/90 sm:text-lg sm:leading-9 text-pretty"
     >
       {text}
