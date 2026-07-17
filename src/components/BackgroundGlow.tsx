@@ -1,6 +1,23 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function BackgroundGlow() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  // RULE 3: Component Culling - Completely strip this from mobile memory
+  if (isMobile) {
+    return null;
+  }
+
   return (
     <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
       {/* Blue glow */}
@@ -23,6 +40,7 @@ export function BackgroundGlow() {
           rounded-full
           bg-blue-500/10
           blur-[170px]
+          transform-gpu
         "
       />
 
@@ -46,6 +64,7 @@ export function BackgroundGlow() {
           rounded-full
           bg-white/5
           blur-[190px]
+          transform-gpu
         "
       />
 
@@ -69,6 +88,7 @@ export function BackgroundGlow() {
           rounded-full
           bg-indigo-500/6
           blur-[220px]
+          transform-gpu
         "
       />
     </div>

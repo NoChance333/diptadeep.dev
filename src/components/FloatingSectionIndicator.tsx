@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+"use client";
 
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+
+// FIX: Added "education" back into the tracking array right after "about"
 const sections = [
-  "home",
   "about",
   "education",
   "experience",
@@ -17,75 +19,67 @@ function formatTitle(id: string) {
 }
 
 export function FloatingSectionIndicator() {
-  const [active, setActive] = useState("home");
+  const [active, setActive] = useState("about");
+  const { scrollY } = useScroll();
+
+  // Scroll-based opacity: invisible at the top, fades in as you hit the About section
+  const opacity = useTransform(scrollY, [150, 300], [0, 1]);
+  const y = useTransform(scrollY, [150, 300], [-12, 0]);
 
   useEffect(() => {
-  const updateActiveSection = () => {
-    const center = window.scrollY + window.innerHeight / 2;
+    const updateActiveSection = () => {
+      const viewportHeight = window.innerHeight;
+      const detectionLine = window.scrollY + (viewportHeight / 2);
 
-    for (const id of sections) {
-      const el = document.getElementById(id);
-      if (!el) continue;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
 
-      const top = el.offsetTop;
-      const bottom = top + el.offsetHeight;
+        const rect = el.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        const bottom = top + el.offsetHeight;
 
-      if (center >= top && center < bottom) {
-        setActive(id);
-        break;
+        if (detectionLine >= top && detectionLine < bottom) {
+          setActive(id);
+          break;
+        }
       }
-    }
-  };
+    };
 
-  updateActiveSection();
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
 
-  window.addEventListener("scroll", updateActiveSection, {
-    passive: true,
-  });
-
-  window.addEventListener("resize", updateActiveSection);
-
-  return () => {
-    window.removeEventListener("scroll", updateActiveSection);
-    window.removeEventListener("resize", updateActiveSection);
-  };
-}, []);
-
-  const hidden = active === "home";
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, []);
 
   return (
-    <AnimatePresence mode="wait">
-      {!hidden && (
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: -18 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -18 }}
-          transition={{
-            duration: 0.55,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="fixed left-1/2 top-7 z-[60] -translate-x-1/2"
-        >
-          <div className="rounded-full border border-white/15 bg-black/45 px-10 py-4 backdrop-blur-3xl shadow-[0_25px_80px_rgba(0,0,0,0.45)]">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={active}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{
-                  duration: 0.45,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="block text-[14px] font-semibold uppercase tracking-[0.42em] text-white"
-              >
-                {formatTitle(active)}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <motion.div
+      style={{ opacity, y }}
+      initial={{ opacity: 0, y: -12, x: "-50%" }}
+      transition={{
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="fixed left-1/2 top-5 md:top-7 z-[60] transform-gpu pointer-events-none w-auto"
+    >
+      <div className="rounded-full border border-white/10 bg-black/70 px-6 py-2.5 md:px-10 md:py-4 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={active}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
+            className="block text-[10px] md:text-[14px] font-semibold uppercase tracking-[0.35em] md:tracking-[0.42em] text-white text-center whitespace-nowrap"
+          >
+            {formatTitle(active)}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 }

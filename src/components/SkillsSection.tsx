@@ -2,24 +2,17 @@
 
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { SectionReveal } from "@/components/SectionReveal";
 
-const skills = [
-  "Python",
-  "Solidity",
-  "Geth",
-  "Clef",
-  "MongoDB",
-  "MySQL",
-];
+const skills = ["Python", "Solidity", "Geth", "Clef", "MongoDB", "MySQL"];
 
+// Explicit placement values to prevent items from collapsing into a clump in the center
 const finalLayout = [
-  { name: "Python", left: "20%", top: "28%" },
-  { name: "Solidity", left: "50%", top: "38%" },
-  { name: "Geth", left: "74%", top: "30%" },
-  { name: "Clef", left: "26%", top: "66%" },
-  { name: "MongoDB", left: "55%", top: "60%" },
-  { name: "MySQL", left: "80%", top: "70%" },
+  { name: "Python", className: "-translate-x-[18vw] -translate-y-[16vh]" },
+  { name: "Solidity", className: "translate-x-[0vw] -translate-y-[6vh]" },
+  { name: "Geth", className: "translate-x-[18vw] -translate-y-[14vh]" },
+  { name: "Clef", className: "-translate-x-[16vw] translate-y-[14vh]" },
+  { name: "MongoDB", className: "translate-x-[2vw] translate-y-[16vh]" },
+  { name: "MySQL", className: "translate-x-[18vw] translate-y-[12vh]" },
 ];
 
 interface SkillItemProps {
@@ -30,73 +23,26 @@ interface SkillItemProps {
 }
 
 function SkillItem({ skill, index, total, scrollYProgress }: SkillItemProps) {
-  // Compress the entire sequential scrolling down to finish by 75% scroll depth
-  const timelineEnd = 0.75; 
-  const segmentLength = timelineEnd / total;
-  
+  // Give each word a much larger, dedicated window inside the scroll timeline so it feels slower
+  const segmentLength = 0.60 / total; 
   const start = index * segmentLength;
-  const end = (index + 1) * segmentLength;
+  const end = start + segmentLength * 1.5; // Staggers and extends overlaps smoothly
 
-  // We explicitly write strictly ascending fractions within our range bounds to satisfy the browser's WAAPI requirements
-  const midFadeIn = start + segmentLength * 0.15;
-  const midFadeOut = end - segmentLength * 0.15;
+  const midFadeIn = start + (end - start) * 0.2;
+  const midFadeOut = end - (end - start) * 0.2;
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, midFadeIn, midFadeOut, end],
-    [0, 1, 1, 0]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [start, midFadeIn, end],
-    [0.65, 1, 1.15]
-  );
-
-  const y = useTransform(
-    scrollYProgress,
-    [start, end],
-    [80, -70]
-  );
-
-  const filter = useTransform(
-    scrollYProgress,
-    [start, midFadeIn, end],
-    ["blur(4px)", "blur(0px)", "blur(4px)"]
-  );
+  // Smoother translation ranges
+  const opacity = useTransform(scrollYProgress, [start, midFadeIn, midFadeOut, end], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [start, midFadeIn, end], [0.85, 1, 1.05]);
+  const y = useTransform(scrollYProgress, [start, end], [40, -40]);
 
   return (
     <motion.div
-      style={{
-        opacity,
-        scale,
-        y,
-        filter,
-      }}
-      className="absolute inset-0 flex items-center justify-center"
+      style={{ opacity, scale, y }}
+      className="absolute inset-0 flex items-center justify-center pointer-events-none transform-gpu"
     >
-      {/* Glow */}
-      <motion.div
-        style={{ opacity }}
-        className="
-          absolute
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-blue-500/20
-          blur-[120px]
-        "
-      />
-
-      <h1
-        className="
-          relative
-          text-[clamp(3rem,8vw,6rem)]
-          font-semibold
-          tracking-tight
-          text-white
-        "
-      >
+      <div className="absolute h-[250px] w-[250px] sm:h-[350px] sm:w-[350px] rounded-full bg-blue-500/[0.04] blur-[100px]" />
+      <h1 className="relative text-[clamp(2.2rem,6vw,4.5rem)] font-bold tracking-tight text-white px-4 text-center">
         {skill}
       </h1>
     </motion.div>
@@ -104,57 +50,37 @@ function SkillItem({ skill, index, total, scrollYProgress }: SkillItemProps) {
 }
 
 export function SkillsSection() {
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Safely trigger mounts to avoid layout mismatches
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Pass ref target safely. Framer Motion will hook cleanly since markup is identical
+  // Using window scroll context targeting rather than container targeting slows the delta tracking speed down significantly
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const finalOpacity = useTransform(
-    scrollYProgress,
-    [0.80, 0.92],
-    [0, 1]
-  );
-
-  const sequenceOpacity = useTransform(
-    scrollYProgress,
-    [0.72, 0.77],
-    [1, 0]
-  );
+  // Stretched tracking zones give you breathing room to scroll before the final screen pops up
+  const sequenceOpacity = useTransform(scrollYProgress, [0.60, 0.72], [1, 0]);
+  const finalOpacity = useTransform(scrollYProgress, [0.68, 0.78], [0, 1]);
 
   return (
-    <SectionReveal
-      id="skills"
-      className="relative h-[650vh]"
-    >
-      <div
-        ref={ref}
-        className="sticky top-0 h-screen overflow-hidden"
-      >
-        {/* Render content explicitly on frontend mount to safely wire up hooks */}
+    <div ref={containerRef} id="skills" className="relative h-[600vh] w-full bg-black isolate z-10">
+      <div className="sticky top-0 h-screen w-full overflow-hidden transform-gpu flex items-center justify-center">
+        
         {isMounted && (
           <>
-            {/* Heading */}
-            <motion.p
-              style={{ opacity: sequenceOpacity }}
-              className="absolute top-16 left-1/2 -translate-x-1/2 text-sm tracking-[0.45em] uppercase text-white/45"
+            {/* Phase 1: Sequential Word Rolling Animations */}
+            <motion.div 
+              style={{ opacity: sequenceOpacity }} 
+              className="absolute inset-0 z-20 pointer-events-none"
             >
-              SKILLS
-            </motion.p>
-
-            {/* Animated Skills */}
-            <motion.div
-              style={{ opacity: sequenceOpacity }}
-              className="absolute inset-0"
-            >
+              <p className="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 text-xs tracking-[0.45em] uppercase text-white/40 font-medium">
+                SKILLS
+              </p>
               {skills.map((skill, index) => (
                 <SkillItem
                   key={skill}
@@ -166,61 +92,33 @@ export function SkillsSection() {
               ))}
             </motion.div>
 
-            {/* Final Reveal */}
-            <motion.div
-              style={{ opacity: finalOpacity }}
-              className="absolute inset-0"
+            {/* Phase 2: Final Multi-Node Constellation Arrangement */}
+            <motion.div 
+              style={{ opacity: finalOpacity }} 
+              className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
             >
-              <p className="absolute top-16 left-1/2 -translate-x-1/2 text-sm tracking-[0.45em] uppercase text-white/45">
+              <p className="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 text-xs tracking-[0.45em] uppercase text-white/40 font-medium">
                 SKILLS
               </p>
 
-              <motion.div
-                className="
-                  absolute
-                  left-1/2
-                  top-1/2
-                  h-[70vh]
-                  w-[80vw]
-                  -translate-x-1/2
-                  -translate-y-1/2
-                "
-              >
-                {finalLayout.map((skill, index) => (
-                  <motion.div
+              {/* Layout Map Wrapper */}
+              <div className="relative w-full h-full flex items-center justify-center max-w-5xl px-4 scale-[0.8] md:scale-100">
+                {finalLayout.map((skill) => (
+                  <div
                     key={skill.name}
-                    initial={false}
-                    animate={{
-                      opacity: 1,
-                      scale: 1,
-                    }}
-                    transition={{
-                      delay: index * 0.05,
-                      duration: 0.5,
-                    }}
-                    style={{
-                      left: skill.left,
-                      top: skill.top,
-                    }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${skill.className} bg-white/[0.02] border border-white/10 backdrop-blur-md px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl transition-all duration-300`}
                   >
-                    <span
-                      className="
-                        text-2xl
-                        font-medium
-                        tracking-tight
-                        text-white/90
-                      "
-                    >
+                    <span className="text-xs sm:text-base font-medium tracking-tight text-white/90 whitespace-nowrap">
                       {skill.name}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </motion.div>
           </>
         )}
+        
       </div>
-    </SectionReveal>
+    </div>
   );
 }
