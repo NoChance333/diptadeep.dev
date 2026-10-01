@@ -3,6 +3,8 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { SectionReveal } from "@/components/SectionReveal";
 import { useRef, useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Check, Copy, Mail } from "lucide-react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -15,6 +17,20 @@ export function ContactSection() {
   const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("diptadeeproy5747@gmail.com");
+      setCopied(true);
+      toast.success("Email copied to clipboard!", {
+        description: "diptadeeproy5747@gmail.com",
+      });
+      setTimeout(() => setCopied(false), 2200);
+    } catch {
+      toast.error("Failed to copy email.");
+    }
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -115,14 +131,36 @@ export function ContactSection() {
               ))}
             </div>
 
-            {/* Dynamic Direct Email Anchor */}
-            <motion.a
-              href="mailto:diptadeeproy5747@gmail.com"
-              whileHover={{ y: -1 }}
-              className="mt-8 inline-block text-base tracking-wide text-muted-foreground transition-colors duration-300 hover:text-white"
-            >
-              diptadeeproy5747@gmail.com
-            </motion.a>
+            {/* Interactive Email Copy Capsule & Direct Mail Link */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center gap-3">
+              <motion.button
+                type="button"
+                onClick={copyEmail}
+                whileHover={{ y: -1, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-5 py-2.5 text-sm font-medium tracking-wide text-zinc-300 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.07] hover:text-white"
+              >
+                {copied ? (
+                  <Check className="h-4 w-4 text-emerald-400 transition-transform duration-200" />
+                ) : (
+                  <Copy className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors duration-200" />
+                )}
+                <span>diptadeeproy5747@gmail.com</span>
+                <span className="text-[11px] uppercase tracking-wider text-zinc-500 group-hover:text-zinc-400 ml-1">
+                  {copied ? "Copied" : "Copy"}
+                </span>
+              </motion.button>
+
+              <motion.a
+                href="mailto:diptadeeproy5747@gmail.com"
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-1.5 text-xs tracking-wider uppercase text-zinc-500 hover:text-zinc-300 transition-colors py-2 px-3"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span>Open Mail ↗</span>
+              </motion.a>
+            </div>
           </motion.div>
         </div>
       </SectionReveal>

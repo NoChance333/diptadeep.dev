@@ -64,7 +64,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0, scale: 1.05 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2.4, ease: EASE, delay: 0.2 }}
+        transition={{ duration: 2.0, ease: EASE, delay: 2.4 }}
         className="relative"
         style={{ perspective: 1200 }}
       >
@@ -117,7 +117,7 @@ export function Hero() {
       <motion.h1
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.35, ease: EASE, delay: 0.95 }}
+        transition={{ duration: 1.35, ease: EASE, delay: 2.7 }}
         className="mt-16 text-center text-[clamp(2.4rem,5.8vw,4.8rem)] font-medium leading-[0.9] tracking-[-0.02em] text-foreground"
       >
         Diptadeep Roy
@@ -127,18 +127,32 @@ export function Hero() {
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.25, ease: EASE, delay: 1.2 }}
+        transition={{ duration: 1.25, ease: EASE, delay: 2.9 }}
         className="mt-6 text-center text-[12px] uppercase tracking-[0.34em] text-muted-foreground/90 sm:text-[13px]"
         style={{ opacity: roleOpacity }}
       >
         Software Developer
       </motion.p>
 
+      {/* Live Availability Status Pill */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: EASE, delay: 3.05 }}
+        className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/[0.07] px-3.5 py-1 text-[11px] font-medium tracking-wider uppercase text-emerald-400/90 shadow-[0_0_24px_-4px_rgba(16,185,129,0.25)] backdrop-blur-md transform-gpu"
+      >
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+        </span>
+        <span>Open to Opportunities</span>
+      </motion.div>
+
       {/* Massive statement */}
       <motion.h2
         initial={{ opacity: 0, y: 36 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.8, ease: EASE, delay: 1.4 }}
+        transition={{ duration: 1.8, ease: EASE, delay: 3.25 }}
         className="mx-auto mt-24 max-w-[11.25ch] bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-center text-[clamp(4rem,10vw,10rem)] leading-[0.9] tracking-[-0.025em] text-transparent text-pretty"
         style={{ opacity: headlineOpacity, y: headlineY }}
       >

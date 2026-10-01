@@ -60,7 +60,7 @@ export function MouseSpotlight() {
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden transform-gpu"
       style={{
         background: background,
-        opacity: 0.2,
+        opacity: 0.14,
       }}
     />
   );

@@ -68,7 +68,11 @@ export function SkillsSection() {
   const finalOpacity = useTransform(scrollYProgress, [0.68, 0.78], [0, 1]);
 
   return (
-    <div ref={containerRef} id="skills" className="relative h-[600vh] w-full bg-black isolate z-10">
+    <div
+      ref={containerRef}
+      id="skills"
+      className="relative h-[340vh] md:h-[600vh] w-full bg-black isolate z-10"
+    >
       <div className="sticky top-0 h-screen w-full overflow-hidden transform-gpu flex items-center justify-center">
         {isMounted && (
           <>

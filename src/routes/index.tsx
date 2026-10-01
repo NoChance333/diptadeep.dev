@@ -64,7 +64,7 @@ function PageContent() {
     <>
       <BackgroundGlow />
       <ThreeBackground />
-      {/* <MouseSpotlight /> */}
+      <MouseSpotlight />
 
       <div className="relative z-10">
         <Navigation />
