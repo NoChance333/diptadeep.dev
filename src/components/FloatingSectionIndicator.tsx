@@ -29,7 +29,7 @@ export function FloatingSectionIndicator() {
   useEffect(() => {
     const updateActiveSection = () => {
       const viewportHeight = window.innerHeight;
-      const detectionLine = window.scrollY + (viewportHeight / 2);
+      const detectionLine = window.scrollY + viewportHeight / 2;
 
       for (const id of sections) {
         const el = document.getElementById(id);

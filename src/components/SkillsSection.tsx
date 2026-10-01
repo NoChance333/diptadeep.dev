@@ -24,7 +24,7 @@ interface SkillItemProps {
 
 function SkillItem({ skill, index, total, scrollYProgress }: SkillItemProps) {
   // Give each word a much larger, dedicated window inside the scroll timeline so it feels slower
-  const segmentLength = 0.60 / total; 
+  const segmentLength = 0.6 / total;
   const start = index * segmentLength;
   const end = start + segmentLength * 1.5; // Staggers and extends overlaps smoothly
 
@@ -64,18 +64,17 @@ export function SkillsSection() {
   });
 
   // Stretched tracking zones give you breathing room to scroll before the final screen pops up
-  const sequenceOpacity = useTransform(scrollYProgress, [0.60, 0.72], [1, 0]);
+  const sequenceOpacity = useTransform(scrollYProgress, [0.6, 0.72], [1, 0]);
   const finalOpacity = useTransform(scrollYProgress, [0.68, 0.78], [0, 1]);
 
   return (
     <div ref={containerRef} id="skills" className="relative h-[600vh] w-full bg-black isolate z-10">
       <div className="sticky top-0 h-screen w-full overflow-hidden transform-gpu flex items-center justify-center">
-        
         {isMounted && (
           <>
             {/* Phase 1: Sequential Word Rolling Animations */}
-            <motion.div 
-              style={{ opacity: sequenceOpacity }} 
+            <motion.div
+              style={{ opacity: sequenceOpacity }}
               className="absolute inset-0 z-20 pointer-events-none"
             >
               <p className="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 text-xs tracking-[0.45em] uppercase text-white/40 font-medium">
@@ -93,8 +92,8 @@ export function SkillsSection() {
             </motion.div>
 
             {/* Phase 2: Final Multi-Node Constellation Arrangement */}
-            <motion.div 
-              style={{ opacity: finalOpacity }} 
+            <motion.div
+              style={{ opacity: finalOpacity }}
               className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
             >
               <p className="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 text-xs tracking-[0.45em] uppercase text-white/40 font-medium">
@@ -117,7 +116,6 @@ export function SkillsSection() {
             </motion.div>
           </>
         )}
-        
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     const mobileQuery = window.matchMedia("(max-width: 768px)");
     mobileQuery.addEventListener("change", handleResize);
-    
+
     return () => mobileQuery.removeEventListener("change", handleResize);
   }, []);
 

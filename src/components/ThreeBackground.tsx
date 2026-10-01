@@ -26,7 +26,7 @@ function Nodes({ count = 45 }: { count?: number }) {
   const lineGeom = useMemo(() => new THREE.BufferGeometry(), []);
   const maxLineVerts = count * 6;
   const linePositions = useMemo(() => new Float32Array(maxLineVerts * 3), [maxLineVerts]);
-  
+
   useMemo(() => {
     lineGeom.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
     lineGeom.setDrawRange(0, 0);
@@ -95,12 +95,7 @@ function Nodes({ count = 45 }: { count?: number }) {
         />
       </points>
       <lineSegments ref={linesRef} geometry={lineGeom}>
-        <lineBasicMaterial
-          color="#9cc8ff"
-          transparent
-          opacity={0.08}
-          depthWrite={false}
-        />
+        <lineBasicMaterial color="#9cc8ff" transparent opacity={0.08} depthWrite={false} />
       </lineSegments>
     </group>
   );
@@ -139,7 +134,7 @@ export function ThreeBackground() {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
-    
+
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
@@ -150,37 +145,7 @@ export function ThreeBackground() {
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden transform-gpu"
       aria-hidden="true"
     >
-      {/* RULE 3: Component Culling - Entirely drop the canvas context loop from mobile execution blocks */}
-      {!isMobile && (
-        <Canvas
-          dpr={[1, 1.5]}
-          gl={{
-            antialias: false,
-            alpha: true,
-            powerPreference: "high-performance",
-          }}
-          camera={{ position: [0, 0, 6], fov: 55 }}
-          className="transform-gpu"
-        >
-          <Suspense fallback={null}>
-            <ambientLight intensity={0.18} />
-            <directionalLight position={[5, 5, 5]} intensity={0.7} color="#ffffff" />
-            <directionalLight position={[-4, 2, 3]} intensity={0.28} color="#8dbdff" />
-            <pointLight position={[0, 0, 8]} intensity={0.25} color="#ffffff" />
-            <Scene />
-          </Suspense>
-        </Canvas>
-      )}
-
-      {/* Decorative Blur Backgrounds */}
-      <div
-        className="absolute inset-0 transform-gpu"
-        style={{
-          background: "radial-gradient(circle at 50% 35%, rgba(110,170,255,0.08), transparent 55%)",
-          filter: isMobile ? "none" : "blur(80px)", // Bypassed structural filter computational loops on mobile
-        }}
-      />
-
+      {/* Decorative Blur Backgrounds rendered behind the 3D canvas */}
       <div
         className="absolute inset-0 transform-gpu"
         style={{
@@ -197,6 +162,36 @@ export function ThreeBackground() {
           `,
         }}
       />
+
+      <div
+        className="absolute inset-0 transform-gpu"
+        style={{
+          background: "radial-gradient(circle at 50% 35%, rgba(110,170,255,0.08), transparent 55%)",
+          filter: isMobile ? "none" : "blur(80px)",
+        }}
+      />
+
+      {/* RULE 3: Component Culling - Entirely drop the canvas context loop from mobile execution blocks */}
+      {!isMobile && (
+        <Canvas
+          dpr={[1, 1.5]}
+          gl={{
+            antialias: false,
+            alpha: true,
+            powerPreference: "high-performance",
+          }}
+          camera={{ position: [0, 0, 6], fov: 55 }}
+          className="relative z-10 h-full w-full transform-gpu"
+        >
+          <Suspense fallback={null}>
+            <ambientLight intensity={0.18} />
+            <directionalLight position={[5, 5, 5]} intensity={0.7} color="#ffffff" />
+            <directionalLight position={[-4, 2, 3]} intensity={0.28} color="#8dbdff" />
+            <pointLight position={[0, 0, 8]} intensity={0.25} color="#ffffff" />
+            <Scene />
+          </Suspense>
+        </Canvas>
+      )}
     </motion.div>
   );
 }

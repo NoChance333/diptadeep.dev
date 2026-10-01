@@ -22,15 +22,15 @@ function getServerEntry(): Promise<ServerEntry> {
 async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
   // Pass-through immediately for valid content routes or normal page queries
   if (response.status !== 500) return response;
-  
+
   const contentType = response.headers.get("content-type");
   if (!contentType || !contentType.includes("application/json")) return response;
 
-  // OPTIMIZATION: Read only the exact byte chunk length required to match the h3 JSON structure 
+  // OPTIMIZATION: Read only the exact byte chunk length required to match the h3 JSON structure
   // instead of buffering megabytes of potentially heavy layout payloads into node memory.
   const targetBodyMatch = '{"unhandled":true,"message":"HTTPError"}';
   const reader = response.clone().body?.getReader();
-  
+
   if (!reader) return response;
 
   try {

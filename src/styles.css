@@ -75,11 +75,7 @@
   --shadow-elevated: 0 20px 60px -20px oklch(0 0 0 / 80%);
   --shadow-glow: 0 0 60px -10px oklch(0.72 0.11 240 / 25%);
 
-  --gradient-vignette: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    oklch(0 0 0 / 60%) 100%
-  );
+  --gradient-vignette: radial-gradient(ellipse at center, transparent 0%, oklch(0 0 0 / 60%) 100%);
   --gradient-fade-top: linear-gradient(to bottom, oklch(0 0 0) 0%, transparent 100%);
   --gradient-fade-bottom: linear-gradient(to top, oklch(0 0 0) 0%, transparent 100%);
 }
@@ -136,13 +132,13 @@
   /* Fallback native optimization for mobile viewports to prevent scrolling lag */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  
+
   /* Elevate parameters elegantly on desktop screen spaces */
   @media (min-width: 769px) {
     backdrop-filter: saturate(160%) blur(24px);
     -webkit-backdrop-filter: saturate(160%) blur(24px);
   }
-  
+
   border: 1px solid var(--glass-border);
 }
 
@@ -173,13 +169,22 @@
 }
 
 @keyframes lovable-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes lovable-pulse-soft {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.95; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.95;
+  }
 }
 
 @utility animate-fade-up {

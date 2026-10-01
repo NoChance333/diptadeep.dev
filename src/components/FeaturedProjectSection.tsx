@@ -18,7 +18,13 @@ const technologies = [
   "Tailwind CSS",
 ];
 
-const architecture = ["User", "Flask Backend", "Ethereum Smart Contract", "IPFS Storage", "NFT Ownership"];
+const architecture = [
+  "User",
+  "Flask Backend",
+  "Ethereum Smart Contract",
+  "IPFS Storage",
+  "NFT Ownership",
+];
 
 export function FeaturedProjectSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -40,12 +46,12 @@ export function FeaturedProjectSection() {
 
   const titleOpacity = useTransform(scrollYProgress, [0.08, 0.22, 0.8, 0.9], [0, 1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0.08, 0.22, 0.8, 0.9], [24, 0, 0, -24]);
-  
+
   // FIX 1: Balanced the filter array structure to match the scroll range completely
   const titleFilter = useTransform(
-    scrollYProgress, 
-    [0.08, 0.22, 0.8, 0.9], 
-    ["blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"]
+    scrollYProgress,
+    [0.08, 0.22, 0.8, 0.9],
+    ["blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"],
   );
 
   const layoutOpacity = useTransform(scrollYProgress, [0.14, 0.28, 0.76, 0.86], [0, 1, 1, 0]);
@@ -61,7 +67,6 @@ export function FeaturedProjectSection() {
         className="relative flex min-h-screen w-full items-center justify-center px-4 sm:px-6 py-16 sm:py-24 md:py-32"
       >
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-          
           {/* Eyebrow */}
           <motion.p
             /* FIX 2: Switched ternary empty objects {} to undefined to protect frame evaluation */
@@ -77,7 +82,9 @@ export function FeaturedProjectSection() {
 
           {/* Title */}
           <motion.h2
-            style={useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : undefined}
+            style={
+              useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : undefined
+            }
             initial={!useCinematic ? { opacity: 0, y: 24 } : undefined}
             whileInView={!useCinematic ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, margin: "-10%" }}
@@ -111,19 +118,20 @@ export function FeaturedProjectSection() {
                 loading="eager"
               />
             </div>
-            
+
             <div className="px-5 py-6 text-left sm:px-8 sm:py-8">
               <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.32em] text-muted-foreground/80">
                 Blockchain-Based Tokenization and Management of Land Documents
               </p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground/90 sm:text-base sm:leading-8">
-                A decentralized approach to secure ownership and transfer, designed to make land records more verifiable, trustworthy, and resilient.
+                A decentralized approach to secure ownership and transfer, designed to make land
+                records more verifiable, trustworthy, and resilient.
               </p>
             </div>
           </GlassPanel>
 
           {/* Bottom Grid Layer */}
-          <motion.div 
+          <motion.div
             style={useCinematic ? { opacity: layoutOpacity, y: layoutY } : undefined}
             initial={!useCinematic ? { opacity: 0, y: 20 } : undefined}
             whileInView={!useCinematic ? { opacity: 1, y: 0 } : undefined}
@@ -138,7 +146,8 @@ export function FeaturedProjectSection() {
                   THE CHALLENGE
                 </p>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground/90 sm:text-base sm:leading-8">
-                  Land ownership records are often paper-based, difficult to verify, and vulnerable to tampering.
+                  Land ownership records are often paper-based, difficult to verify, and vulnerable
+                  to tampering.
                 </p>
               </div>
 
@@ -182,12 +191,16 @@ export function FeaturedProjectSection() {
               <div className="flex flex-wrap gap-3 mt-2">
                 <a
                   href="https://github.com/NoChance333/final-year-project"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-xs sm:text-sm text-foreground transition-colors hover:bg-white/5"
                 >
                   View GitHub →
                 </a>
                 <a
                   href="https://ieeexplore.ieee.org/document/11413273"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-xs sm:text-sm text-foreground transition-colors hover:bg-white/5"
                 >
                   Read IEEE Paper →
@@ -195,7 +208,6 @@ export function FeaturedProjectSection() {
               </div>
             </div>
           </motion.div>
-
         </div>
       </SectionReveal>
     </div>

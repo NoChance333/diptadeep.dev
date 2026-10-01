@@ -20,7 +20,7 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
-    
+
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
@@ -37,15 +37,11 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
 
   const titleOpacity = useTransform(scrollYProgress, [0.15, 0.28, 0.72, 0.82], [0, 1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0.15, 0.28, 0.72, 0.82], [30, 0, 0, -30]);
-  
+
   // RULE 2: Keep dynamic blur tracking strictly isolated to desktop targets
   const titleFilter = useTransform(scrollYProgress, [0.15, 0.28], ["blur(8px)", "blur(0px)"]);
 
-  const paragraphs = Array.isArray(description)
-    ? description
-    : description
-      ? [description]
-      : [];
+  const paragraphs = Array.isArray(description) ? description : description ? [description] : [];
 
   return (
     <div ref={containerRef} className="w-full">
@@ -54,7 +50,6 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
         className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
       >
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center transform-gpu">
-          
           {/* Eyebrow */}
           <motion.p
             style={{ opacity: eyebrowOpacity, y: eyebrowY }}

@@ -18,7 +18,7 @@ export function Hero() {
   const my = useMotionValue(0);
   const reducedMotion = useReducedMotion();
   const reducedProgress = useMotionValue(0);
-  
+
   const { scrollYProgress } = useScroll({
     target: wrapRef,
     offset: ["start start", "end start"],
@@ -36,7 +36,7 @@ export function Hero() {
   const portraitOpacity = useTransform(progress, [0, 0.16, 0.46, 0.78], [1, 1, 0.48, 0]);
   const portraitY = useTransform(progress, [0, 0.3, 0.75], [0, -26, -54]);
   const roleOpacity = useTransform(progress, [0, 0.14, 0.34, 0.6], [1, 1, 0.28, 0]);
-  
+
   // Kept your clean values exactly intact
   const headlineOpacity = useTransform(progress, [0, 0.2, 0.5, 0.8], [1, 1, 0.76, 0.18]);
   const headlineY = useTransform(progress, [0, 0.24, 0.64], [0, -12, -28]);

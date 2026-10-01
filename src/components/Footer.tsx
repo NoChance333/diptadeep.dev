@@ -4,12 +4,10 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-end">
         <div>
           <div className="text-2xl font-semibold tracking-tight text-white">Diptadeep Roy</div>
-          <p className="mt-3 max-w-sm text-sm text-white/50">
-            Software engineer
-          </p>
+          <p className="mt-3 max-w-sm text-sm text-white/50">Software engineer</p>
         </div>
       </div>
-      
+
       <div className="mx-auto mt-10 flex max-w-6xl items-center justify-between border-t border-white/5 pt-6 text-xs text-white/40">
         <span>© {new Date().getFullYear()} Diptadeep Roy</span>
         <span>Crafted with care.</span>

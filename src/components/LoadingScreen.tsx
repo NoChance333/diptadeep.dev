@@ -29,13 +29,11 @@ export function LoadingScreen() {
           <div
             className="absolute hidden h-[450px] w-[450px] rounded-full blur-3xl opacity-25 md:block transform-gpu"
             style={{
-              background:
-                "radial-gradient(circle, rgba(59,130,246,0.22), transparent 70%)",
+              background: "radial-gradient(circle, rgba(59,130,246,0.22), transparent 70%)",
             }}
           />
 
           <div className="relative flex flex-col items-center transform-gpu">
-
             <motion.h1
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
@@ -76,7 +74,6 @@ export function LoadingScreen() {
             >
               Entering Portfolio
             </motion.p>
-
           </div>
         </motion.div>
       )}

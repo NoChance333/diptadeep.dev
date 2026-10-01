@@ -20,7 +20,7 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 
     // This is now officially a catastrophic unhandled server error
     console.error("Catastrophic Server Exception Captured:", error);
-    
+
     return new Response(renderErrorPage(), {
       status: 500,
       headers: { "content-type": "text/html; charset=utf-8" },

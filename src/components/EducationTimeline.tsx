@@ -6,12 +6,29 @@ import { useRef, useEffect, useState } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const milestones = [
+interface Milestone {
+  year: string;
+  title: string;
+  subtitle: string;
+  detail?: string;
+}
+
+const milestones: Milestone[] = [
   { year: "2020", title: "Adamas World School", subtitle: "Secondary Education" },
   { year: "2022", title: "Central Model School", subtitle: "Higher Secondary" },
-  { year: "2025", title: "Bachelor of Computer Applications", subtitle: "Adamas University", detail: "CGPA: 6.65" },
-  { year: "2025 – Present", title: "Master of Computer Applications", subtitle: "Adamas University", detail: "Currently Pursuing" },
-] as const;
+  {
+    year: "2025",
+    title: "Bachelor of Computer Applications",
+    subtitle: "Adamas University",
+    detail: "CGPA: 6.65",
+  },
+  {
+    year: "2025 – Present",
+    title: "Master of Computer Applications",
+    subtitle: "Adamas University",
+    detail: "Currently Pursuing",
+  },
+];
 
 export function EducationTimeline() {
   const shouldReduceMotion = useReducedMotion();
@@ -33,16 +50,16 @@ export function EducationTimeline() {
 
   const titleOpacity = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [0, 1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [24, 0, 0, -24]);
-  
+
   // FIX 1: Balanced the filter array to match the 4-point structure completely
   const titleFilter = useTransform(
-    scrollYProgress, 
-    [0.14, 0.26, 0.72, 0.82], 
-    ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"]
+    scrollYProgress,
+    [0.14, 0.26, 0.72, 0.82],
+    ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"],
   );
 
   const imgOpacity = useTransform(scrollYProgress, [0.2, 0.34, 0.7, 0.8], [0, 1, 1, 0]);
-  
+
   // FIX 2: Balanced scale array structure to prevent rendering errors
   const imgScale = useTransform(scrollYProgress, [0.2, 0.34, 0.7, 0.8], [0.96, 1, 1, 0.96]);
 
@@ -58,7 +75,6 @@ export function EducationTimeline() {
         className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
       >
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-          
           <motion.p
             /* FIX 3: Replaced empty objects {} with undefined to ensure safe style evaluations */
             style={useCinematic ? { opacity: eyebrowOpacity, y: eyebrowY } : undefined}
@@ -72,7 +88,9 @@ export function EducationTimeline() {
           </motion.p>
 
           <motion.h2
-            style={useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : undefined}
+            style={
+              useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : undefined
+            }
             initial={!useCinematic ? { opacity: 0, y: 24 } : undefined}
             whileInView={!useCinematic ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, margin: "-15%" }}
@@ -94,9 +112,9 @@ export function EducationTimeline() {
             */
             className="mt-12 w-full max-w-sm aspect-[4/3] min-h-[220px] sm:min-h-[280px] overflow-hidden rounded-[2rem] border border-white/10 p-1.5 bg-white/[0.01] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.8)] transform-gpu"
           >
-            <img 
-              src="/images/graduation.jpeg" 
-              alt="Graduation Milestone" 
+            <img
+              src="/images/graduation.jpeg"
+              alt="Graduation Milestone"
               className="h-full w-full object-cover rounded-[1.6rem] block opacity-85 hover:opacity-100 transition-opacity duration-500"
               loading="eager"
             />
@@ -127,18 +145,29 @@ export function EducationTimeline() {
                     transition={{ duration: 0.8, ease: EASE, delay: index * 0.08 }}
                     className={`relative flex justify-center transform-gpu ${isEven ? "sm:justify-start" : "sm:justify-end"}`}
                   >
-                    <div className={`w-full max-w-[22rem] ${isEven ? "sm:pr-10 sm:text-right" : "sm:pl-10 sm:text-left"}`}>
-                      <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground/80">{milestone.year}</p>
-                      <p className="mt-3 text-lg leading-none text-foreground sm:text-xl">{milestone.title}</p>
-                      <p className="mt-2 text-sm leading-7 text-muted-foreground/90">{milestone.subtitle}</p>
-                      {milestone.detail && <p className="mt-2 text-sm leading-7 text-muted-foreground/80">{milestone.detail}</p>}
+                    <div
+                      className={`w-full max-w-[22rem] ${isEven ? "sm:pr-10 sm:text-right" : "sm:pl-10 sm:text-left"}`}
+                    >
+                      <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground/80">
+                        {milestone.year}
+                      </p>
+                      <p className="mt-3 text-lg leading-none text-foreground sm:text-xl">
+                        {milestone.title}
+                      </p>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground/90">
+                        {milestone.subtitle}
+                      </p>
+                      {milestone.detail && (
+                        <p className="mt-2 text-sm leading-7 text-muted-foreground/80">
+                          {milestone.detail}
+                        </p>
+                      )}
                     </div>
                   </motion.div>
                 );
               })}
             </div>
           </div>
-
         </div>
       </SectionReveal>
     </div>

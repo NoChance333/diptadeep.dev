@@ -1,17 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const links = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Research", href: "#research" },
+  { label: "Projects", href: "#featured-project" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
@@ -28,7 +25,7 @@ export function Navigation() {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
-    
+
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
@@ -58,10 +55,7 @@ export function Navigation() {
         className="glass-panel flex items-center gap-1 rounded-full px-2 py-2 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] transition-all duration-500"
         aria-label="Primary"
       >
-        <a
-          href="#home"
-          className="ml-2 mr-4 text-sm font-medium tracking-tight text-foreground/90"
-        >
+        <a href="#home" className="ml-2 mr-4 text-sm font-medium tracking-tight text-foreground/90">
           Diptadeep Roy
         </a>
 

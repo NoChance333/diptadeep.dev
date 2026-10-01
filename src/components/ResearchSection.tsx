@@ -23,7 +23,7 @@ export function ResearchSection() {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
-    
+
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
@@ -39,7 +39,7 @@ export function ResearchSection() {
 
   const titleOpacity = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [0, 1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [24, 0, 0, -24]);
-  
+
   // RULE 2: Dynamic filter processing string sets are kept functional strictly for desktop frames
   const titleFilter = useTransform(scrollYProgress, [0.14, 0.26], ["blur(8px)", "blur(0px)"]);
 
@@ -55,7 +55,6 @@ export function ResearchSection() {
         className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-6 py-24 sm:py-28 md:py-32"
       >
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center transform-gpu">
-          
           <motion.p
             style={!shouldReduceMotion ? { opacity: eyebrowOpacity, y: eyebrowY } : {}}
             className="text-eyebrow transform-gpu"
@@ -75,7 +74,7 @@ export function ResearchSection() {
             One idea. Months of work. Published.
           </motion.h2>
 
-          <motion.div 
+          <motion.div
             style={!shouldReduceMotion ? { opacity: gridOpacity, y: gridY } : {}}
             className="mt-14 grid w-full gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 transform-gpu"
           >
@@ -86,23 +85,24 @@ export function ResearchSection() {
                   IEEE RACS 2025
                 </p>
                 <h3 className="mt-4 text-[clamp(1.05rem,2.2vw,1.35rem)] leading-[1.35] tracking-[-0.015em] text-foreground">
-                  Blockchain-Based Tokenization and Management of Land Documents: A Decentralized Approach for Secure Ownership and Transfer
+                  Blockchain-Based Tokenization and Management of Land Documents: A Decentralized
+                  Approach for Secure Ownership and Transfer
                 </h3>
                 <div className="mt-8 flex flex-wrap gap-3 transform-gpu">
-                  <motion.a 
-                    href="/documents/ResearchPaper.pdf" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    whileHover={useCinematic ? { y: -2 } : undefined} 
+                  <motion.a
+                    href="/documents/ResearchPaper.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={useCinematic ? { y: -2 } : undefined}
                     className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5 transform-gpu"
                   >
                     Read Paper
                   </motion.a>
-                  <motion.a 
-                    href="https://ieeexplore.ieee.org/document/11413273" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    whileHover={useCinematic ? { y: -2 } : undefined} 
+                  <motion.a
+                    href="https://ieeexplore.ieee.org/document/11413273"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={useCinematic ? { y: -2 } : undefined}
                     className="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/5 transform-gpu"
                   >
                     IEEE Xplore ↗
@@ -112,9 +112,9 @@ export function ResearchSection() {
 
               {/* Graphic Container with Hardware Composite Layering */}
               <div className="mx-auto w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.01] p-1.5 shadow-2xl transform-gpu">
-                <img 
-                  src="/images/research-team.jpeg" 
-                  alt="Research Collaboration Team" 
+                <img
+                  src="/images/research-team.jpeg"
+                  alt="Research Collaboration Team"
                   className="block h-auto w-full rounded-[1.3rem] opacity-85 transition-all duration-700 hover:scale-[1.01] hover:opacity-100"
                   loading="lazy"
                 />
@@ -124,25 +124,38 @@ export function ResearchSection() {
             {/* Right Side Info Columns */}
             <div className="flex flex-col gap-8 transform-gpu">
               <div className="text-left transform-gpu">
-                <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground/80">Stack</p>
+                <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground/80">
+                  Stack
+                </p>
                 <div className="mt-4 flex flex-wrap gap-2 transform-gpu">
                   {technologies.map((tech) => (
-                    <span key={tech} className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-muted-foreground/90 inline-block transform-gpu">{tech}</span>
+                    <span
+                      key={tech}
+                      className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-muted-foreground/90 inline-block transform-gpu"
+                    >
+                      {tech}
+                    </span>
                   ))}
                 </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 transform-gpu">
                 {stats.map((stat) => (
-                  <GlassPanel key={stat.label} className="rounded-[1.25rem] bg-white/[0.025] px-5 py-5 text-left">
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground/70">{stat.label}</p>
-                    <p className="mt-3 text-[clamp(1rem,2vw,1.2rem)] leading-none tracking-[-0.02em] text-foreground">{stat.value}</p>
+                  <GlassPanel
+                    key={stat.label}
+                    className="rounded-[1.25rem] bg-white/[0.025] px-5 py-5 text-left"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground/70">
+                      {stat.label}
+                    </p>
+                    <p className="mt-3 text-[clamp(1rem,2vw,1.2rem)] leading-none tracking-[-0.02em] text-foreground">
+                      {stat.value}
+                    </p>
                   </GlassPanel>
                 ))}
               </div>
             </div>
           </motion.div>
-
         </div>
       </SectionReveal>
     </div>

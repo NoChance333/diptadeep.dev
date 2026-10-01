@@ -42,14 +42,22 @@ export function GlassPanel({
       animate={animate}
       transition={transition}
       viewport={viewport}
-      onHoverStart={!isMobile ? (event) => {
-        setIsHovered(true);
-        onHoverStart?.(event);
-      } : undefined}
-      onHoverEnd={!isMobile ? (event) => {
-        setIsHovered(false);
-        onHoverEnd?.(event);
-      } : undefined}
+      onHoverStart={
+        !isMobile
+          ? (event, info) => {
+              setIsHovered(true);
+              onHoverStart?.(event, info);
+            }
+          : undefined
+      }
+      onHoverEnd={
+        !isMobile
+          ? (event, info) => {
+              setIsHovered(false);
+              onHoverEnd?.(event, info);
+            }
+          : undefined
+      }
       // PERFORMANCE: backdrop-blur-xl is strictly limited to desktop viewports (md:), and transform-gpu keeps calculations smooth
       className={`relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.035] md:backdrop-blur-xl transform-gpu ${className}`}
     >

@@ -53,7 +53,6 @@ export function ContactSection() {
         className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
       >
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-          
           {/* Eyebrow */}
           <motion.p
             style={useCinematic ? { opacity: eyebrowOpacity, y: eyebrowY } : {}}
@@ -87,11 +86,12 @@ export function ContactSection() {
             transition={{ duration: 0.95, ease: EASE, delay: 0.14 }}
             className="mx-auto mt-8 max-w-2xl text-base leading-8 text-muted-foreground/90 sm:text-lg"
           >
-            Whether it's software engineering, open-source collaboration, research, or simply discussing ideas, I'm always happy to connect.
+            Whether it's software engineering, open-source collaboration, research, or simply
+            discussing ideas, I'm always happy to connect.
           </motion.p>
 
           {/* Animated Action / Links Frame Wrapper */}
-          <motion.div 
+          <motion.div
             style={useCinematic ? { opacity: actionsOpacity, y: actionsY } : {}}
             className="flex flex-col items-center w-full"
           >
@@ -104,6 +104,8 @@ export function ContactSection() {
                 <motion.a
                   key={link.label}
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ y: -2, scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
                   className="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-sm text-foreground transition-colors hover:bg-white/5"
@@ -122,7 +124,6 @@ export function ContactSection() {
               diptadeeproy5747@gmail.com
             </motion.a>
           </motion.div>
-
         </div>
       </SectionReveal>
     </div>

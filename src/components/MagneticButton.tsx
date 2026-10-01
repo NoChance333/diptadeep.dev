@@ -3,15 +3,26 @@
 import { motion, MotionProps, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ReactNode, useCallback, useState, useEffect } from "react";
 
-type MagneticButtonProps = Omit<MotionProps, "children" | "className" | "onMouseMove" | "onMouseLeave" | "style"> & {
+type MagneticButtonProps = Omit<
+  MotionProps,
+  "children" | "className" | "onMouseMove" | "onMouseLeave" | "style"
+> & {
   children: ReactNode;
   className?: string;
   href?: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   style?: React.CSSProperties;
-} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children" | "className" | "type" | "style"> &
-  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "children" | "className" | "style">;
+  onMouseMove?: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
+} & Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "children" | "className" | "type" | "style" | "onMouseMove" | "onMouseLeave"
+  > &
+  Omit<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    "children" | "className" | "style" | "onMouseMove" | "onMouseLeave"
+  >;
 
 export function MagneticButton({
   children,
@@ -31,7 +42,7 @@ export function MagneticButton({
 }: MagneticButtonProps) {
   const shouldReduceMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 220, damping: 20, mass: 0.5 });
@@ -40,7 +51,7 @@ export function MagneticButton({
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
-    
+
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
@@ -104,7 +115,12 @@ export function MagneticButton({
   }
 
   return (
-    <motion.button type={type} disabled={disabled} {...sharedProps} className={`${className} transform-gpu`}>
+    <motion.button
+      type={type}
+      disabled={disabled}
+      {...sharedProps}
+      className={`${className} transform-gpu`}
+    >
       {children}
     </motion.button>
   );
