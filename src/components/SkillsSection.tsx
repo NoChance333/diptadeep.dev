@@ -65,7 +65,7 @@ export function SkillsSection() {
 
   // Stretched tracking zones give you breathing room to scroll before the final screen pops up
   const sequenceOpacity = useTransform(scrollYProgress, [0.6, 0.72], [1, 0]);
-  const finalOpacity = useTransform(scrollYProgress, [0.68, 0.78], [0, 1]);
+  const finalOpacity = useTransform(scrollYProgress, [0.68, 0.78, 0.88, 0.96], [0, 1, 1, 0]);
 
   return (
     <div

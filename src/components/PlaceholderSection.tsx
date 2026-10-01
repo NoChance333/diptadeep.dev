@@ -32,14 +32,16 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
   });
 
   // Timeline transformations
-  const eyebrowOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [0, 1, 1, 0]);
-  const eyebrowY = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [20, 0, 0, -20]);
+  const sectionOpacity = useTransform(scrollYProgress, [0.06, 0.18, 0.58, 0.70], [0, 1, 1, 0]);
 
-  const titleOpacity = useTransform(scrollYProgress, [0.15, 0.28, 0.72, 0.82], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.15, 0.28, 0.72, 0.82], [30, 0, 0, -30]);
+  const eyebrowOpacity = useTransform(scrollYProgress, [0.08, 0.20, 0.44, 0.54], [0, 1, 1, 0]);
+  const eyebrowY = useTransform(scrollYProgress, [0.08, 0.20, 0.44, 0.54], [16, 0, 0, -16]);
 
-  // RULE 2: Keep dynamic blur tracking strictly isolated to desktop targets
-  const titleFilter = useTransform(scrollYProgress, [0.15, 0.28], ["blur(8px)", "blur(0px)"]);
+  const titleOpacity = useTransform(scrollYProgress, [0.12, 0.24, 0.48, 0.58], [0, 1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.12, 0.24, 0.48, 0.58], [24, 0, 0, -24]);
+
+  const lineOpacity = useTransform(scrollYProgress, [0.26, 0.36, 0.58, 0.68], [0, 1, 1, 0]);
+  const lineScale = useTransform(scrollYProgress, [0.26, 0.36, 0.58, 0.68], [0.8, 1, 1, 0.8]);
 
   const paragraphs = Array.isArray(description) ? description : description ? [description] : [];
 
@@ -49,7 +51,10 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
         id={id}
         className="relative flex min-h-[100svh] w-full items-center justify-center px-6 py-24 sm:py-28 md:py-32"
       >
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center transform-gpu">
+        <motion.div
+          style={{ opacity: sectionOpacity }}
+          className="mx-auto flex max-w-4xl flex-col items-center text-center transform-gpu"
+        >
           {/* Eyebrow */}
           <motion.p
             style={{ opacity: eyebrowOpacity, y: eyebrowY }}
@@ -63,8 +68,6 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
             style={{
               opacity: titleOpacity,
               y: titleY,
-              // RULE 2: Bypass heavy rendering checks completely on mobile targets
-              filter: isMobile ? "none" : titleFilter,
             }}
             className="mt-6 max-w-3xl text-[clamp(2.1rem,4.6vw,3.8rem)] leading-[1.05] tracking-[-0.025em] text-foreground text-pretty transform-gpu"
           >
@@ -88,13 +91,10 @@ export function PlaceholderSection({ id, eyebrow, title, description }: Props) {
 
           {/* Decorative Bottom Line */}
           <motion.div
-            initial={{ opacity: 0, scaleX: 0.8 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true, margin: "-15%" }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
+            style={{ opacity: lineOpacity, scaleX: lineScale }}
             className="mx-auto mt-14 h-px w-24 origin-center bg-gradient-to-r from-transparent via-white/40 to-transparent transform-gpu"
           />
-        </div>
+        </motion.div>
       </SectionReveal>
     </div>
   );
@@ -107,21 +107,20 @@ interface ParagraphProps {
   isMobile: boolean;
 }
 
-function CinematicParagraph({ text, index, progress, isMobile }: ParagraphProps) {
-  const startFade = 0.24 + index * 0.05;
-  const endFade = startFade + 0.1;
+function CinematicParagraph({ text, index, progress }: ParagraphProps) {
+  const startIn = 0.16 + index * 0.04;
+  const endIn = startIn + 0.08;
+  const startOut = 0.50 + index * 0.03;
+  const endOut = startOut + 0.09;
 
-  const opacity = useTransform(progress, [startFade, endFade, 0.68, 0.78], [0, 1, 1, 0]);
-  const y = useTransform(progress, [startFade, endFade, 0.68, 0.78], [25, 0, 0, -25]);
-  const filter = useTransform(progress, [startFade, endFade], ["blur(6px)", "blur(0px)"]);
+  const opacity = useTransform(progress, [startIn, endIn, startOut, endOut], [0, 1, 1, 0]);
+  const y = useTransform(progress, [startIn, endIn, startOut, endOut], [20, 0, 0, -20]);
 
   return (
     <motion.p
       style={{
         opacity,
         y,
-        // RULE 2: Drop pixel-level blur convolution pipelines from processing threads on mobile
-        filter: isMobile ? "none" : filter,
       }}
       className="max-w-2xl text-base leading-8 text-muted-foreground/90 sm:text-lg sm:leading-9 text-pretty transform-gpu"
     >

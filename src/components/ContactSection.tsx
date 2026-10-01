@@ -44,21 +44,20 @@ export function ContactSection() {
 
   // --- Cinematic Timeline Settings ---
   // Eyebrow
-  const eyebrowOpacity = useTransform(scrollYProgress, [0.15, 0.28, 0.85, 0.95], [0, 1, 1, 0]);
-  const eyebrowY = useTransform(scrollYProgress, [0.15, 0.28, 0.85, 0.95], [16, 0, 0, -16]);
+  const eyebrowOpacity = useTransform(scrollYProgress, [0.10, 0.22, 0.88, 0.96], [0, 1, 1, 0]);
+  const eyebrowY = useTransform(scrollYProgress, [0.10, 0.22, 0.88, 0.96], [16, 0, 0, -16]);
 
   // Headline
-  const titleOpacity = useTransform(scrollYProgress, [0.18, 0.32, 0.82, 0.92], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.18, 0.32, 0.82, 0.92], [24, 0, 0, -24]);
-  const titleFilter = useTransform(scrollYProgress, [0.18, 0.32], ["blur(8px)", "blur(0px)"]);
+  const titleOpacity = useTransform(scrollYProgress, [0.12, 0.25, 0.85, 0.94], [0, 1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.12, 0.25, 0.85, 0.94], [24, 0, 0, -24]);
 
   // Sub-description string paragraph
-  const descOpacity = useTransform(scrollYProgress, [0.22, 0.36, 0.8, 0.9], [0, 1, 1, 0]);
-  const descY = useTransform(scrollYProgress, [0.22, 0.36, 0.8, 0.9], [20, 0, 0, -20]);
+  const descOpacity = useTransform(scrollYProgress, [0.16, 0.28, 0.82, 0.92], [0, 1, 1, 0]);
+  const descY = useTransform(scrollYProgress, [0.16, 0.28, 0.82, 0.92], [20, 0, 0, -20]);
 
   // Interactive buttons and links array
-  const actionsOpacity = useTransform(scrollYProgress, [0.26, 0.4, 0.78, 0.88], [0, 1, 1, 0]);
-  const actionsY = useTransform(scrollYProgress, [0.26, 0.4, 0.78, 0.88], [16, 0, 0, -16]);
+  const actionsOpacity = useTransform(scrollYProgress, [0.20, 0.32, 0.80, 0.90], [0, 1, 1, 0]);
+  const actionsY = useTransform(scrollYProgress, [0.20, 0.32, 0.80, 0.90], [16, 0, 0, -16]);
 
   const useCinematic = isMounted && !shouldReduceMotion;
 
@@ -83,7 +82,7 @@ export function ContactSection() {
 
           {/* Big Cinematic Title */}
           <motion.h2
-            style={useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : {}}
+            style={useCinematic ? { opacity: titleOpacity, y: titleY } : {}}
             initial={!useCinematic ? { opacity: 0, y: 24 } : undefined}
             whileInView={!useCinematic ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, margin: "-15%" }}

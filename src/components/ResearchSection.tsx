@@ -34,17 +34,14 @@ export function ResearchSection() {
     offset: ["start end", "end start"],
   });
 
-  const eyebrowOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [0, 1, 1, 0]);
-  const eyebrowY = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [16, 0, 0, -16]);
+  const eyebrowOpacity = useTransform(scrollYProgress, [0.08, 0.18, 0.44, 0.54], [0, 1, 1, 0]);
+  const eyebrowY = useTransform(scrollYProgress, [0.08, 0.18, 0.44, 0.54], [16, 0, 0, -16]);
 
-  const titleOpacity = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [24, 0, 0, -24]);
+  const titleOpacity = useTransform(scrollYProgress, [0.12, 0.22, 0.46, 0.56], [0, 1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.12, 0.22, 0.46, 0.56], [24, 0, 0, -24]);
 
-  // RULE 2: Dynamic filter processing string sets are kept functional strictly for desktop frames
-  const titleFilter = useTransform(scrollYProgress, [0.14, 0.26], ["blur(8px)", "blur(0px)"]);
-
-  const gridOpacity = useTransform(scrollYProgress, [0.22, 0.36, 0.68, 0.78], [0, 1, 1, 0]);
-  const gridY = useTransform(scrollYProgress, [0.22, 0.36, 0.68, 0.78], [40, 0, 0, -40]);
+  const gridOpacity = useTransform(scrollYProgress, [0.18, 0.30, 0.68, 0.80], [0, 1, 1, 0]);
+  const gridY = useTransform(scrollYProgress, [0.18, 0.30, 0.68, 0.80], [40, 0, 0, -40]);
 
   const useCinematic = !shouldReduceMotion && !isMobile;
 
@@ -66,8 +63,6 @@ export function ResearchSection() {
             style={{
               opacity: !shouldReduceMotion ? titleOpacity : 1,
               y: !shouldReduceMotion ? titleY : 0,
-              // RULE 2: Bypass computational text pixel convolutions on mobile screens
-              filter: useCinematic ? titleFilter : "none",
             }}
             className="mt-6 max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05] tracking-[-0.025em] text-foreground transform-gpu"
           >

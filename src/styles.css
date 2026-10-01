@@ -127,6 +127,12 @@
   }
 }
 
+@utility transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 @utility glass-panel {
   background: var(--glass-bg);
   /* Fallback native optimization for mobile viewports to prevent scrolling lag */

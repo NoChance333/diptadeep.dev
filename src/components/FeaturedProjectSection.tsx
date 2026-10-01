@@ -41,21 +41,14 @@ export function FeaturedProjectSection() {
   });
 
   // Balanced 4-point animation system that works uniformly across all screen heights
-  const eyebrowOpacity = useTransform(scrollYProgress, [0.05, 0.18, 0.82, 0.92], [0, 1, 1, 0]);
-  const eyebrowY = useTransform(scrollYProgress, [0.05, 0.18, 0.82, 0.92], [16, 0, 0, -16]);
+  const eyebrowOpacity = useTransform(scrollYProgress, [0.06, 0.16, 0.44, 0.54], [0, 1, 1, 0]);
+  const eyebrowY = useTransform(scrollYProgress, [0.06, 0.16, 0.44, 0.54], [16, 0, 0, -16]);
 
-  const titleOpacity = useTransform(scrollYProgress, [0.08, 0.22, 0.8, 0.9], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.08, 0.22, 0.8, 0.9], [24, 0, 0, -24]);
+  const titleOpacity = useTransform(scrollYProgress, [0.08, 0.18, 0.46, 0.56], [0, 1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.08, 0.18, 0.46, 0.56], [24, 0, 0, -24]);
 
-  // FIX 1: Balanced the filter array structure to match the scroll range completely
-  const titleFilter = useTransform(
-    scrollYProgress,
-    [0.08, 0.22, 0.8, 0.9],
-    ["blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"],
-  );
-
-  const layoutOpacity = useTransform(scrollYProgress, [0.14, 0.28, 0.76, 0.86], [0, 1, 1, 0]);
-  const layoutY = useTransform(scrollYProgress, [0.14, 0.28, 0.76, 0.86], [30, 0, 0, -30]);
+  const layoutOpacity = useTransform(scrollYProgress, [0.12, 0.24, 0.70, 0.84], [0, 1, 1, 0]);
+  const layoutY = useTransform(scrollYProgress, [0.12, 0.24, 0.70, 0.84], [30, 0, 0, -30]);
 
   // Optimization: Allow cinematic tracking on mobile engines with safer boundaries
   const useCinematic = isMounted && !shouldReduceMotion;
@@ -82,9 +75,7 @@ export function FeaturedProjectSection() {
 
           {/* Title */}
           <motion.h2
-            style={
-              useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : undefined
-            }
+            style={useCinematic ? { opacity: titleOpacity, y: titleY } : undefined}
             initial={!useCinematic ? { opacity: 0, y: 24 } : undefined}
             whileInView={!useCinematic ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, margin: "-10%" }}

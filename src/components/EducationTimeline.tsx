@@ -45,25 +45,16 @@ export function EducationTimeline() {
   });
 
   // Global Scroll Transforms for Desktop Configuration
-  const eyebrowOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [0, 1, 1, 0]);
-  const eyebrowY = useTransform(scrollYProgress, [0.1, 0.2, 0.75, 0.85], [16, 0, 0, -16]);
+  const eyebrowOpacity = useTransform(scrollYProgress, [0.06, 0.16, 0.40, 0.50], [0, 1, 1, 0]);
+  const eyebrowY = useTransform(scrollYProgress, [0.06, 0.16, 0.40, 0.50], [16, 0, 0, -16]);
 
-  const titleOpacity = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.14, 0.26, 0.72, 0.82], [24, 0, 0, -24]);
+  const titleOpacity = useTransform(scrollYProgress, [0.10, 0.20, 0.42, 0.52], [0, 1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.10, 0.20, 0.42, 0.52], [24, 0, 0, -24]);
 
-  // FIX 1: Balanced the filter array to match the 4-point structure completely
-  const titleFilter = useTransform(
-    scrollYProgress,
-    [0.14, 0.26, 0.72, 0.82],
-    ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"],
-  );
+  const imgOpacity = useTransform(scrollYProgress, [0.14, 0.26, 0.46, 0.58], [0, 1, 1, 0]);
+  const imgScale = useTransform(scrollYProgress, [0.14, 0.26, 0.46, 0.58], [0.96, 1, 1, 0.96]);
 
-  const imgOpacity = useTransform(scrollYProgress, [0.2, 0.34, 0.7, 0.8], [0, 1, 1, 0]);
-
-  // FIX 2: Balanced scale array structure to prevent rendering errors
-  const imgScale = useTransform(scrollYProgress, [0.2, 0.34, 0.7, 0.8], [0.96, 1, 1, 0.96]);
-
-  const lineOpacity = useTransform(scrollYProgress, [0.25, 0.38, 0.68, 0.78], [0, 1, 1, 0]);
+  const lineOpacity = useTransform(scrollYProgress, [0.18, 0.28, 0.75, 0.85], [0, 1, 1, 0]);
 
   // Optimization: Allow cinematic tracking to run smoothly on mobile viewports safely
   const useCinematic = isMounted && !shouldReduceMotion;
@@ -88,9 +79,7 @@ export function EducationTimeline() {
           </motion.p>
 
           <motion.h2
-            style={
-              useCinematic ? { opacity: titleOpacity, y: titleY, filter: titleFilter } : undefined
-            }
+            style={useCinematic ? { opacity: titleOpacity, y: titleY } : undefined}
             initial={!useCinematic ? { opacity: 0, y: 24 } : undefined}
             whileInView={!useCinematic ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, margin: "-15%" }}
@@ -139,9 +128,9 @@ export function EducationTimeline() {
                 return (
                   <motion.div
                     key={milestone.year}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-10%" }}
+                    viewport={{ once: true, margin: "-8%" }}
                     transition={{ duration: 0.8, ease: EASE, delay: index * 0.08 }}
                     className={`relative flex justify-center transform-gpu ${isEven ? "sm:justify-start" : "sm:justify-end"}`}
                   >
