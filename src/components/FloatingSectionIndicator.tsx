@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 
 // FIX: Added "education" back into the tracking array right after "about"
 const sections = [
+  "home",
   "about",
   "education",
   "experience",
@@ -19,12 +20,12 @@ function formatTitle(id: string) {
 }
 
 export function FloatingSectionIndicator() {
-  const [active, setActive] = useState("about");
+  const [active, setActive] = useState("home");
   const { scrollY } = useScroll();
 
-  // Scroll-based opacity: invisible at the top, fades in as you hit the About section
-  const opacity = useTransform(scrollY, [150, 300], [0, 1]);
-  const y = useTransform(scrollY, [150, 300], [-12, 0]);
+  // Scroll-based opacity: invisible in Hero, fades in as you reach About
+  const opacity = useTransform(scrollY, [500, 750], [0, 1]);
+  const y = useTransform(scrollY, [500, 750], [-12, 0]);
 
   useEffect(() => {
     const updateActiveSection = () => {

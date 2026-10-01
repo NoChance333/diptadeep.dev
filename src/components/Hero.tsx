@@ -156,21 +156,17 @@ export function Hero() {
       </motion.div>
 
       {/* Massive statement */}
-      <motion.div
+      <motion.h2
+        initial={{ opacity: 0, y: 36 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.8, ease: EASE, delay: 3.25 }}
+        className="mx-auto mt-24 max-w-[11.25ch] bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-center text-[clamp(4rem,10vw,10rem)] leading-[0.9] tracking-[-0.025em] text-transparent text-pretty transform-gpu"
         style={{ opacity: headlineOpacity, y: headlineY }}
-        className="mx-auto mt-24 max-w-[11.25ch] transform-gpu"
       >
-        <motion.h2
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.8, ease: EASE, delay: 3.25 }}
-          className="bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-center text-[clamp(4rem,10vw,10rem)] leading-[0.9] tracking-[-0.025em] text-transparent text-pretty"
-        >
-          <span className="block">Turning ideas</span>
-          <span className="block">into reliable</span>
-          <span className="block">software.</span>
-        </motion.h2>
-      </motion.div>
+        <span className="block">Turning ideas</span>
+        <span className="block">into reliable</span>
+        <span className="block">software.</span>
+      </motion.h2>
     </section>
   );
 }
